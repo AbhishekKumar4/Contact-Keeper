@@ -1,19 +1,23 @@
 package com.contactkeeper.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
-@Document(collection = "users")
+@Entity(name = "users")
+//@Document(collection = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;
     private String password;
-    private Date createdDate;
+    private Date createdDate = new Date();
 
     public Long getId() {
         return id;
