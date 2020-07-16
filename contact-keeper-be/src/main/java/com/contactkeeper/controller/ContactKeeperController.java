@@ -25,7 +25,7 @@ public class ContactKeeperController {
         return new ResponseEntity<>(userService.getUser(name), HttpStatus.OK);
     }*/
 
-    @PostMapping(path = "/contact/user")
+    @PostMapping(value = "/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.registerUser(user), HttpStatus.OK);
     }
