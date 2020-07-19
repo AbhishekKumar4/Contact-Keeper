@@ -64,8 +64,8 @@ public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        //PasswordEncoder encoder = new BCryptPasswordEncoder();
-        PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
+        PasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        //PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
         return encoder;
     }
 
