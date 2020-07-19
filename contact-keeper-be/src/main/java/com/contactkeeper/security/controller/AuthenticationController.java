@@ -1,5 +1,7 @@
+/*
 package com.contactkeeper.security.controller;
 
+import com.contactkeeper.security.CustomUserService;
 import com.contactkeeper.security.JwtUtil;
 import com.contactkeeper.security.model.AuthenticationRequest;
 import com.contactkeeper.security.model.AuthenticationResponse;
@@ -21,7 +23,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserService customUserService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -30,15 +32,16 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) throws Exception {
         try {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUseraname(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
         } catch( BadCredentialsException badCredentialsException) {
             throw new Exception("Incorrect Username or Password", badCredentialsException);
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUseraname());
-        final String jwt =  jwtUtil.generateToken(userDetails, request.getUseraname());
+        final UserDetails userDetails = customUserService.loadUserByUsername(request.getUsername());
+        final String jwt =  jwtUtil.generateToken(userDetails, request.getUsername());
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
     }
 }
+*/

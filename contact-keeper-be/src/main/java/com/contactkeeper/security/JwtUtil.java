@@ -1,3 +1,4 @@
+/*
 package com.contactkeeper.security;
 
 import io.jsonwebtoken.Claims;
@@ -37,3 +38,4 @@ public class JwtUtil {
                 .compact();
     }
 }
+*/

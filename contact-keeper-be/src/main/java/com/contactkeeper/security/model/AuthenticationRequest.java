@@ -2,23 +2,23 @@ package com.contactkeeper.security.model;
 
 public class AuthenticationRequest {
 
-    private String useraname;
+    private String username;
     private String password;
 
     public AuthenticationRequest() {
     }
 
-    public AuthenticationRequest(String useraname, String password) {
-        this.useraname = useraname;
+    public AuthenticationRequest(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getUseraname() {
-        return useraname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUseraname(String useraname) {
-        this.useraname = useraname;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

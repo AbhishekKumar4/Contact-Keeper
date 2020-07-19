@@ -1,3 +1,4 @@
+/*
 package com.contactkeeper.security.filter;
 
 import com.contactkeeper.security.CustomUserService;
@@ -51,3 +52,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
+*/
