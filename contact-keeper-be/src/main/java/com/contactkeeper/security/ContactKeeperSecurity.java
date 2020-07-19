@@ -1,6 +1,7 @@
 package com.contactkeeper.security;
 
 /*import com.contactkeeper.security.filter.JwtRequestFilter;*/
+import com.contactkeeper.security.filter.JwtTokenVerifierFilter;
 import com.contactkeeper.security.filter.JwtUserNamePasswordAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,7 @@ public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUserNamePasswordAuthFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifierFilter(), JwtUserNamePasswordAuthFilter.class)
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .anyRequest().authenticated();
