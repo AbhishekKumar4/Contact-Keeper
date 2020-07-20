@@ -1,6 +1,5 @@
 package com.contactkeeper.security;
 
-/*import com.contactkeeper.security.filter.JwtRequestFilter;*/
 import com.contactkeeper.security.filter.JwtTokenVerifierFilter;
 import com.contactkeeper.security.filter.JwtUserNamePasswordAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,23 +14,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
 public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomUserService customUserService;
-
-/*    @Autowired
-    private JwtRequestFilter jwtRequestFilter;*/
+    private final CustomUserService customUserService;
+    private final JwtConfig jwtConfig;
+    private final JwtSecretKey jwtSecretKey;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
+    @Autowired
+    public ContactKeeperSecurity(CustomUserService customUserService, JwtConfig jwtConfig, JwtSecretKey jwtSecretKey) {
+        this.customUserService = customUserService;
+        this.jwtConfig = jwtConfig;
+        this.jwtSecretKey = jwtSecretKey;
     }
 
     @Override
@@ -40,19 +42,16 @@ public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUserNamePasswordAuthFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifierFilter(), JwtUserNamePasswordAuthFilter.class)
+                .addFilter(new JwtUserNamePasswordAuthFilter(authenticationManager(), jwtConfig, jwtSecretKey))
+                .addFilterAfter(new JwtTokenVerifierFilter(jwtConfig, jwtSecretKey), JwtUserNamePasswordAuthFilter.class)
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .anyRequest().authenticated();
-
-        //http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
-
         return super.authenticationManagerBean();
     }
 
@@ -67,7 +66,6 @@ public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder(10);
-        //PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
         return encoder;
     }
 

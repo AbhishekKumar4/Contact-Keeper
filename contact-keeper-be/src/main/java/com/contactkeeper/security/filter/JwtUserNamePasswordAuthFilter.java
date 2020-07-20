@@ -1,15 +1,14 @@
 package com.contactkeeper.security.filter;
 
+import com.contactkeeper.security.JwtConfig;
+import com.contactkeeper.security.JwtSecretKey;
 import com.contactkeeper.security.model.AuthenticationRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -22,11 +21,17 @@ import java.util.Date;
 
 public class JwtUserNamePasswordAuthFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final static String SECRET = "SECRET_KEY_SECRET_KEY_SECRET_KEY_SECRET_KEY_SECRET_KEY_SECRET_KEY_SECRET_KEY_SECRET_KEY";
     private final AuthenticationManager authenticationManager;
 
-    public JwtUserNamePasswordAuthFilter(AuthenticationManager authenticationManager) {
+    private final JwtConfig jwtConfig;
+
+    private final JwtSecretKey jwtSecretKey;
+
+
+    public JwtUserNamePasswordAuthFilter(AuthenticationManager authenticationManager, JwtConfig jwtConfig, JwtSecretKey jwtSecretKey) {
         this.authenticationManager = authenticationManager;
+        this.jwtConfig = jwtConfig;
+        this.jwtSecretKey = jwtSecretKey;
     }
 
     @Override
@@ -55,9 +60,9 @@ public class JwtUserNamePasswordAuthFilter extends UsernamePasswordAuthenticatio
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(1)))
-                .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()))
+                .signWith(jwtSecretKey.getSecretKeyForSigning())
                 .compact();
 
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }
