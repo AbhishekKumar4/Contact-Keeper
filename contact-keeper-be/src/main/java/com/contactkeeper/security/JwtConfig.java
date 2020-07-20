@@ -9,7 +9,7 @@ public class JwtConfig {
 
     private String secretKey;
     private String tokenPrefix;
-    private String tokenExpirationAfterDays;
+    private Long tokenExpirationAfterDays;
 
     public String getSecretKey() {
         return secretKey;
@@ -27,11 +27,11 @@ public class JwtConfig {
         this.tokenPrefix = tokenPrefix;
     }
 
-    public String getTokenExpirationAfterDays() {
+    public Long getTokenExpirationAfterDays() {
         return tokenExpirationAfterDays;
     }
 
-    public void setTokenExpirationAfterDays(String tokenExpirationAfterDays) {
+    public void setTokenExpirationAfterDays(Long tokenExpirationAfterDays) {
         this.tokenExpirationAfterDays = tokenExpirationAfterDays;
     }
 
