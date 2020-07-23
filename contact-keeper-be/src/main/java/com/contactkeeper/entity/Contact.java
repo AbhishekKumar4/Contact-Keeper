@@ -14,7 +14,7 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "user")
+    @Column(name = "USER")
     private String user;
 
     @Column(name = "NAME")
@@ -26,11 +26,11 @@ public class Contact {
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "CONTACT_TYPE", columnDefinition = "varchar(10) default 'primary'")
-    private String type;
+    @Column(name = "CONTACT_TYPE")
+    private String type = "primary";
 
-    @Column(name = "NAME")
-    private Date date;
+    @Column(name = "DATE")
+    private Date date = new Date();
 
     public Long getId() {
         return id;
