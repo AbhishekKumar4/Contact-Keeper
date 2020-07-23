@@ -27,7 +27,7 @@ public class Contact {
     private String phone;
 
     @Column(name = "CONTACT_TYPE")
-    private String type = "primary";
+    private String type = "personal";
 
     @Column(name = "DATE")
     private Date date = new Date();
