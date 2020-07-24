@@ -2,6 +2,8 @@ package com.contactkeeper.service;
 
 
 import com.contactkeeper.entity.Contact;
+import com.contactkeeper.exceptions.ContactNotFoundException;
+import com.contactkeeper.exceptions.UserNotAuthorizedException;
 import com.contactkeeper.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,32 +29,28 @@ public class ContactService {
         return contactRepository.findAllByUser(user);
     }
 
-    public Contact updateContact(Contact contact) throws Exception {
+    public Contact updateContact(Contact contact) {
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Contact> contactOptional = contactRepository.findById(contact.getId());
         if(!contactOptional.isPresent()) {
-            //throw some exception
-            throw new Exception("Contact Not Found!!!");
+            throw new ContactNotFoundException("Contact Not Found!!!");
         }
         Contact contactEntity = contactOptional.get();
         if(contactEntity.getName().equalsIgnoreCase(user)) {
-            //Not Authorized Exception
-            throw new IllegalAccessException("User not authorized!!!");
+            throw new UserNotAuthorizedException("User not authorized!!!");
         }
         return contactRepository.save(contact);
     }
 
-    public Contact deleteContact(Long contactId) throws Exception {
+    public Contact deleteContact(Long contactId) {
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Contact> contactOptional = contactRepository.findById(contactId);
         if(!contactOptional.isPresent()) {
-            //throw some exception
-            throw new Exception("Contact Not Found!!!");
+            throw new ContactNotFoundException("Contact Not Found!!!");
         }
         Contact contactEntity = contactOptional.get();
         if(!contactEntity.getName().equalsIgnoreCase(user)) {
-            //Not Authorized Exception
-            throw new IllegalAccessException("User not authorized!!!");
+            throw new UserNotAuthorizedException("User not authorized!!!");
         }
         contactRepository.deleteById(contactId);
         return contactEntity;

@@ -32,12 +32,12 @@ public class ContactController {
     }
 
     @PutMapping(path = "/contact")
-    public ResponseEntity<Contact> updateContacts(@RequestBody Contact contact) throws Exception {
+    public ResponseEntity<Contact> updateContacts(@RequestBody Contact contact) {
         return new ResponseEntity<>(contactService.updateContact(contact), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/contact/{id}")
-    public ResponseEntity<Contact> deleteContacts(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Contact> deleteContacts(@PathVariable Long id) {
         return new ResponseEntity<>(contactService.deleteContact(id), HttpStatus.OK);
     }
 
