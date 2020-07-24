@@ -37,8 +37,8 @@ public class ContactController {
     }
 
     @DeleteMapping(path = "/contact/{id}")
-    public ResponseEntity<Contact> deleteContacts(@PathVariable Long contactId) throws Exception {
-        return new ResponseEntity<>(contactService.deleteContact(contactId), HttpStatus.OK);
+    public ResponseEntity<Contact> deleteContacts(@PathVariable Long id) throws Exception {
+        return new ResponseEntity<>(contactService.deleteContact(id), HttpStatus.OK);
     }
 
 

@@ -50,7 +50,7 @@ public class ContactService {
             throw new Exception("Contact Not Found!!!");
         }
         Contact contactEntity = contactOptional.get();
-        if(contactEntity.getName().equalsIgnoreCase(user)) {
+        if(!contactEntity.getName().equalsIgnoreCase(user)) {
             //Not Authorized Exception
             throw new IllegalAccessException("User not authorized!!!");
         }
