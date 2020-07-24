@@ -5,11 +5,9 @@ import com.contactkeeper.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -25,6 +23,16 @@ public class ContactController {
 
     @GetMapping(path = "/contact")
     public ResponseEntity<List<Contact>> getContacts() {
+        return new ResponseEntity<>(contactService.getContacts(), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/contact")
+    public ResponseEntity<List<Contact>> updateContacts(@RequestBody Contact contact) {
+        return new ResponseEntity<>(contactService.getContacts(), HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/contact/{id}")
+    public ResponseEntity<List<Contact>> deleteContacts(@PathVariable Long contactId) {
         return new ResponseEntity<>(contactService.getContacts(), HttpStatus.OK);
     }
 
