@@ -6,7 +6,6 @@ import com.contactkeeper.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,9 +42,9 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    public void deleteContact(Contact contact) throws Exception {
+    public Contact deleteContact(Long contactId) throws Exception {
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Contact> contactOptional = contactRepository.findById(contact.getId());
+        Optional<Contact> contactOptional = contactRepository.findById(contactId);
         if(!contactOptional.isPresent()) {
             //throw some exception
             throw new Exception("Contact Not Found!!!");
@@ -55,7 +54,8 @@ public class ContactService {
             //Not Authorized Exception
             throw new IllegalAccessException("User not authorized!!!");
         }
-        contactRepository.deleteById(contact.getId());
+        contactRepository.deleteById(contactId);
+        return contactEntity;
     }
 
 }
