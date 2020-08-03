@@ -19,18 +19,21 @@ const ContactState = props => {
                 id :1,
                 name : 'Abhishek Kumar',
                 email : 'abc@gmail.com',
-                type : 'personal'
+                phone : "125478965",
+                type : 'professional'
             },
             {
                 id :2,
                 name : 'Ruchir Saxena',
                 email : 'abc@gmail.com',
+                phone : "125478965",
                 type : 'personal'
             },
             {
                 id :3,
                 name : 'Manmeet Singh',
                 email : 'abc@gmail.com',
+                phone : "125478965",
                 type : 'personal'
             }
         ]
