@@ -17,7 +17,7 @@ const ContactFilter = () => {
 
 
     const onChange = e => {
-        if(text.current.value != '') {
+        if(text.current.value !== '') {
             filterContact(e.target.value);
         } else {
             clearFilter();
