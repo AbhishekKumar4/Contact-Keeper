@@ -10,11 +10,13 @@ import Login from './components/auth/Login'
 
 import ContactState from './context/contact/ContactState'
 import AuthState from './context/auth/AuthState'
+import AlertState from './context/alert/AlertState'
 
 const App = () => {
   return (
     <AuthState>
     <ContactState>
+      <AlertState>
     <Router>
       <Fragment>
         <NavBar />
@@ -28,6 +30,7 @@ const App = () => {
           </div>
       </Fragment>
     </Router>
+    </AlertState>
     </ContactState>
     </AuthState>
   );
