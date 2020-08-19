@@ -26,14 +26,14 @@ const AlertState = props => {
             }), timeout);
     }
     return (
-        <AlertState.Provider
+        <AlertContext.Provider
         value = {{
             alerts : state,
             setAlert
         }}
         >
             {props.children}
-        </AlertState.Provider>
+        </AlertContext.Provider>
     );
 };
 
