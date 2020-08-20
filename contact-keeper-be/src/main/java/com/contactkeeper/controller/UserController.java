@@ -8,17 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+@CrossOrigin
 @RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    public String test() {
-        return "hello";
-    }
-
+    
     @PostMapping(value = "/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.registerUser(user), HttpStatus.OK);
