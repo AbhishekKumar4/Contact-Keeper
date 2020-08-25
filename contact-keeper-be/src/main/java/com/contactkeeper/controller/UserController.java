@@ -14,10 +14,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
+
     @PostMapping(value = "/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.registerUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userService.registerUser(user), HttpStatus.CREATED);
     }
 
 }

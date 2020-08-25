@@ -1,6 +1,7 @@
 package com.contactkeeper.service;
 
 import com.contactkeeper.entity.User;
+import com.contactkeeper.exceptions.UserAlreadyExistException;
 import com.contactkeeper.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(User user) {
+        User loadedUser = userRepository.findByEmail(user.getEmail());
+        if( loadedUser != null ) {
+            throw new UserAlreadyExistException("Email id already exists!!!");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
