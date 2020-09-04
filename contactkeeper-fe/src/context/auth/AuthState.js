@@ -19,7 +19,8 @@ const AuthState = props => {
        isAuthenticated : null,
        loading : true,
        user : null,
-       error : null
+       error : null,
+       code : null
     };
 
     const [state, dispatch] = useReducer(authReducer, initialState);
@@ -39,8 +40,9 @@ const AuthState = props => {
 
         try {
             const response = await axios.post('http://localhost:8080/register', formData, config);
+            debugger
             dispatch({
-                type: REGISTER_SUCCESS,
+                action: REGISTER_SUCCESS,
                 payload : response.data
             });
         } catch (error) {
