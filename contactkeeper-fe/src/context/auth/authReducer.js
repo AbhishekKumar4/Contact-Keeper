@@ -27,7 +27,8 @@ export default (state, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                error: action.payload
+                error: action.payload.body,
+                code : action.payload.responseCode
             }
         default:
             return state;

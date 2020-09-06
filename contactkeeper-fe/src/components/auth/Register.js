@@ -8,11 +8,13 @@ const Register = () => {
     const authContext = useContext(AuthContext);
 
     const { setAlert }  = alertContext;
-    const { register, code } = authContext;
+    const { register, error , code} = authContext;
 
     useEffect(() => {
-        console.log(code);
-    });
+        if(code === 409) {
+            setAlert(error, 'danger');
+        }
+    }, [error]);
 
     const [user, setUser] = useState({
         name : '',

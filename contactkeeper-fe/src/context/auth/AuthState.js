@@ -40,15 +40,15 @@ const AuthState = props => {
 
         try {
             const response = await axios.post('http://localhost:8080/register', formData, config);
-            debugger
             dispatch({
-                action: REGISTER_SUCCESS,
-                payload : response.data
+                type: REGISTER_SUCCESS,
+                payload : { body : response.data, responseCode : response.status}
             });
         } catch (error) {
+            debugger
             dispatch({
-                action : REGISTER_FAIL,
-                payload: "Register failed"
+                type : REGISTER_FAIL,
+                payload: { body : error.response.data.message , responseCode : error.response.status}
             });
         }
     }
@@ -76,11 +76,12 @@ const AuthState = props => {
             loading : state.loading,
             user : state.user,
             error : state.error,
+            code : state.code,
             register,
             loadUser,
             loginUser,
             logoutUser,
-            clearErrors
+            clearErrors 
         }}
         >
             {props.children}
