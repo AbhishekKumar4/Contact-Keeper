@@ -1,7 +1,7 @@
 package com.contactkeeper.service;
 
 import com.contactkeeper.entity.User;
-import com.contactkeeper.exceptions.UserAlreadyExistException;
+import com.contactkeeper.exception.UserAlreadyExistException;
 import com.contactkeeper.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

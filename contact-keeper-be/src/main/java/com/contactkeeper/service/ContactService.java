@@ -2,8 +2,8 @@ package com.contactkeeper.service;
 
 
 import com.contactkeeper.entity.Contact;
-import com.contactkeeper.exceptions.ContactNotFoundException;
-import com.contactkeeper.exceptions.UserNotAuthorizedException;
+import com.contactkeeper.exception.ContactNotFoundException;
+import com.contactkeeper.exception.UserNotAuthorizedException;
 import com.contactkeeper.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
