@@ -1,6 +1,7 @@
 import React, {  useState, useContext, useEffect } from 'react'
 import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext'
+import { Redirect } from 'react-router-dom';
 
 const Register = () => {
 
@@ -13,8 +14,13 @@ const Register = () => {
     useEffect(() => {
         if(code === 409) {
             setAlert(error, 'danger');
+        } else if (code === 201) {
+            setAlert('User Registered Successfully !!!', 'success');
         }
-    }, [error]);
+        else {
+            setAlert('Some Error Occured...Please try again!!!', 'danger');
+        }
+    }, [code]);
 
     const [user, setUser] = useState({
         name : '',

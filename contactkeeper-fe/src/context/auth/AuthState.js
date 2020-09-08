@@ -40,12 +40,12 @@ const AuthState = props => {
 
         try {
             const response = await axios.post('http://localhost:8080/register', formData, config);
+            console.log(response);
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload : { body : response.data, responseCode : response.status}
             });
         } catch (error) {
-            debugger
             dispatch({
                 type : REGISTER_FAIL,
                 payload: { body : error.response.data.message , responseCode : error.response.status}
@@ -64,9 +64,7 @@ const AuthState = props => {
     }
 
     // Clear Errors
-    const clearErrors = () => {
-        console.log("Clear Errors");
-    }
+    const clearErrors = () => dispatch({ type : CLEAR_ERRORS});
 
     return (
         <AuthContext.Provider

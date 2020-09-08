@@ -18,7 +18,8 @@ export default (state, action) => {
                  isAuthenticated: false,
                  loading: false,
                  user: null,
-                 error:null
+                 error:null,
+                 code : action.payload.responseCode
             }
         case REGISTER_FAIL:
             return {
@@ -30,6 +31,12 @@ export default (state, action) => {
                 error: action.payload.body,
                 code : action.payload.responseCode
             }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                code: null,
+                error: null
+            }    
         default:
             return state;
     }
