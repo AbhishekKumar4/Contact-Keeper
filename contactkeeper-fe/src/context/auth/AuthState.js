@@ -19,7 +19,7 @@ const AuthState = props => {
        isAuthenticated : null,
        loading : true,
        user : null,
-       error : null,
+       message : null,
        code : null
     };
 
@@ -73,7 +73,7 @@ const AuthState = props => {
             isAuthenticated : state.isAuthenticateden,
             loading : state.loading,
             user : state.user,
-            error : state.error,
+            message : state.message,
             code : state.code,
             register,
             loadUser,

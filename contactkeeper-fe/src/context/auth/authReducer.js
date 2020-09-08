@@ -18,7 +18,7 @@ export default (state, action) => {
                  isAuthenticated: false,
                  loading: false,
                  user: null,
-                 error:null,
+                 message:'User Registered Successfully !!!',
                  code : action.payload.responseCode
             }
         case REGISTER_FAIL:
@@ -28,14 +28,14 @@ export default (state, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                error: action.payload.body,
+                message: action.payload.body,
                 code : action.payload.responseCode
             }
         case CLEAR_ERRORS:
             return {
                 ...state,
                 code: null,
-                error: null
+                message: null
             }    
         default:
             return state;

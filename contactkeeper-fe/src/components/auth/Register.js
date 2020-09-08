@@ -9,18 +9,17 @@ const Register = () => {
     const authContext = useContext(AuthContext);
 
     const { setAlert }  = alertContext;
-    const { register, error , code} = authContext;
+    const { register, message , code, clearErrors} = authContext;
 
     useEffect(() => {
         if(code === 409) {
-            setAlert(error, 'danger');
+            setAlert(message, 'danger');
+            clearErrors();
         } else if (code === 201) {
-            setAlert('User Registered Successfully !!!', 'success');
+            setAlert(message, 'success');
+            clearErrors();
         }
-        else {
-            setAlert('Some Error Occured...Please try again!!!', 'danger');
-        }
-    }, [code]);
+    }, [message]);
 
     const [user, setUser] = useState({
         name : '',
