@@ -3,7 +3,7 @@ import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext'
 import { Redirect } from 'react-router-dom';
 
-const Register = () => {
+const Register = props => {
 
     const alertContext = useContext(AlertContext);
     const authContext = useContext(AuthContext);
@@ -17,6 +17,7 @@ const Register = () => {
             clearErrors();
         } else if (code === 201) {
             setAlert(message, 'success');
+            props.history.push('/login');
             clearErrors();
         }
     }, [message]);
