@@ -26,8 +26,18 @@ const AuthState = props => {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     // Load User
-    const loadUser = () => {
-        console.log("Load User");
+    const loadUser = async () => {        
+        try {
+            const response = await axios.get('http://localhost:8080/auth');
+            dispatch({
+                type: USER_LOADED,
+                payload: response.data
+            });
+        } catch(error) {
+            dispatch({
+                type: AUTH_ERROR
+            });
+        }
     }
 
     // Register User

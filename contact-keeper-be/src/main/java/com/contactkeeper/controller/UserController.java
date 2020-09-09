@@ -20,4 +20,9 @@ public class UserController {
         return new ResponseEntity<>(userService.registerUser(user), HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "/auth")
+    public ResponseEntity<User> loadUser() {
+        return new ResponseEntity<>(userService.loadUser(), HttpStatus.OK);
+    }
+
 }
