@@ -28,7 +28,19 @@ export default (state, action) => {
                  message:'User Registered Successfully !!!',
                  code : action.payload.responseCode
             }
+        case LOGIN_SUCCESS:
+                localStorage.setItem('Authorization', action.payload.body);
+                return {
+                     ...state,
+                     ...action.payload.body,
+                     isAuthenticated: true,
+                     loading: false,
+                     user: null,
+                     message:'User Registered Successfully !!!',
+                     code : action.payload.responseCode
+            }
         case REGISTER_FAIL:
+        case LOGIN_FAIL:
             localStorage.removeItem('token')
             return {
                 ...state,

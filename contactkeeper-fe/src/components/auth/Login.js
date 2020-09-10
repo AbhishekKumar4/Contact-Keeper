@@ -1,6 +1,26 @@
-import React, {  useState } from 'react'
+import React, {  useState, useContext, useEffect } from 'react'
+import AuthContext from '../../context/auth/authContext'
+import AlertContext from '../../context/alert/alertContext'
 
 const Login = () => {
+
+    const alertContext = useContext(AlertContext);
+    const authContext = useContext(AuthContext);
+
+    const { setAlert }  = alertContext;
+    const { loginUser, message , code, clearErrors} = authContext;
+
+    useEffect(() => {
+        if(code === 409) {
+            setAlert(message, 'danger');
+            clearErrors();
+        } else if (code === 201) {
+            setAlert(message, 'success');
+            props.history.push('/login');
+            clearErrors();
+        }
+    }, [message]);
+
 
     const [user, setUser] = useState({
         email: '',
@@ -13,7 +33,9 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log('Login Submit');
+        if(email === '' && password === '') {
+            setAlert('Please fill in all fields', 'danger');
+        }
     }
 
     return (
