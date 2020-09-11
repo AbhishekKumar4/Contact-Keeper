@@ -75,7 +75,8 @@ const AuthState = props => {
         const config = {
             headers : {
                 'Content-Type': 'application/json'
-            }
+            },
+            withCredentials: true
         }
         try {
             const response = await axios.post('http://localhost:8080/login', formData, config);
