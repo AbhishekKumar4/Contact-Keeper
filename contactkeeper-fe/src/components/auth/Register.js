@@ -16,7 +16,7 @@ const Register = props => {
             clearErrors();
         } else if (code === 201) {
             setAlert(message, 'success');
-            props.history.push('/login');
+            //props.history.push('/login');
             clearErrors();
         }
     }, [message]);
