@@ -65,6 +65,7 @@ public class JwtUserNamePasswordAuthFilter extends UsernamePasswordAuthenticatio
                 .compact();
 
         response.getWriter().write(new ObjectMapper().writeValueAsString(new AuthenticationResponse(token)));
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        //Add bearer to token here, not from FE
+        //response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }
