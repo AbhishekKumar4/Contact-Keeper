@@ -3,6 +3,7 @@ package com.contactkeeper.security.filter;
 import com.contactkeeper.security.JwtConfig;
 import com.contactkeeper.security.JwtSecretKey;
 import com.contactkeeper.security.model.AuthenticationRequest;
+import com.contactkeeper.security.model.AuthenticationResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,6 +64,7 @@ public class JwtUserNamePasswordAuthFilter extends UsernamePasswordAuthenticatio
                 .signWith(jwtSecretKey.getSecretKeyForSigning())
                 .compact();
 
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new AuthenticationResponse(token)));
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }

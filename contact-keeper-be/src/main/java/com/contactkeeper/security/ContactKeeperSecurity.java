@@ -2,6 +2,7 @@ package com.contactkeeper.security;
 
 import com.contactkeeper.security.filter.JwtTokenVerifierFilter;
 import com.contactkeeper.security.filter.JwtUserNamePasswordAuthFilter;
+import com.contactkeeper.security.filter.SimpleCorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,9 +48,11 @@ public class ContactKeeperSecurity extends WebSecurityConfigurerAdapter {
                 .cors().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilterBefore(new SimpleCorsFilter(), JwtUserNamePasswordAuthFilter.class)
                 .addFilter(new JwtUserNamePasswordAuthFilter(authenticationManager(), jwtConfig, jwtSecretKey))
                 .addFilterAfter(new JwtTokenVerifierFilter(jwtConfig, jwtSecretKey), JwtUserNamePasswordAuthFilter.class)
                 .authorizeRequests()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
     }
