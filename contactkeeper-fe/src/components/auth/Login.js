@@ -15,7 +15,7 @@ const Login = props => {
             setAlert(message, 'danger');
             clearErrors();
         } else if (code === 200) {
-            setAlert(message, 'success');
+            //setAlert("Login", 'success');
             props.history.push('/');
             clearErrors();
         }

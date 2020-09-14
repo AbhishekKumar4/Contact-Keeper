@@ -36,12 +36,12 @@ export default (state, action) => {
                      isAuthenticated: true,
                      loading: false,
                      user: null,
-                     message:'User Registered Successfully !!!',
+                     message:'Logged In Successfully !!!',
                      code : action.payload.responseCode
             }
         case REGISTER_FAIL:
         case LOGIN_FAIL:
-            localStorage.removeItem('token')
+            localStorage.removeItem('Authorization')
             return {
                 ...state,
                 token: null,
@@ -52,7 +52,7 @@ export default (state, action) => {
                 code : action.payload.responseCode
             }
         case AUTH_ERROR:
-            localStorage.removeItem('token');
+            localStorage.removeItem('Authorization');
             return {
                 ...state,
                 token: null,

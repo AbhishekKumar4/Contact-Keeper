@@ -17,7 +17,7 @@ import {
 
 const AuthState = props => {
     const initialState = {
-       token : localStorage.getItem('token'),
+       token : localStorage.getItem('Authorization'),
        isAuthenticated : null,
        loading : true,
        user : null,
@@ -29,7 +29,6 @@ const AuthState = props => {
 
     // Load User
     const loadUser = async () => {    
-        debugger
         if(localStorage.Authorization) {
             setAuthToken(localStorage.Authorization);
         }
@@ -105,7 +104,7 @@ const AuthState = props => {
         <AuthContext.Provider
         value = {{
             token : state.token,
-            isAuthenticated : state.isAuthenticateden,
+            isAuthenticated : state.isAuthenticated,
             loading : state.loading,
             user : state.user,
             message : state.message,

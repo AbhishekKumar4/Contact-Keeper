@@ -28,7 +28,10 @@ public class UserService {
 
     public User loadUser() {
         String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findByName(user);
+        User loadedUser =  userRepository.findByName(user);
+        //Don't send password
+        loadedUser.setPassword(null);
+        return loadedUser;
     }
 
 }
