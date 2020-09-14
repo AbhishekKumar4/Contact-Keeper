@@ -64,8 +64,6 @@ public class JwtUserNamePasswordAuthFilter extends UsernamePasswordAuthenticatio
                 .signWith(jwtSecretKey.getSecretKeyForSigning())
                 .compact();
 
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new AuthenticationResponse(token)));
-        //Add bearer to token here, not from FE
-        //response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new AuthenticationResponse(jwtConfig.getTokenPrefix() + token)));
     }
 }
