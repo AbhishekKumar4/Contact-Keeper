@@ -3,12 +3,14 @@ package com.contactkeeper.service;
 import com.contactkeeper.entity.User;
 import com.contactkeeper.exception.UserAlreadyExistException;
 import com.contactkeeper.repository.UserRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Log4j2
 public class UserService {
 
     @Autowired
@@ -18,8 +20,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(User user) {
+        log.info("Registering a new user %s", user.getEmail());
         User loadedUser = userRepository.findByEmail(user.getEmail());
         if( loadedUser != null ) {
+            log.info("RUser with id %s already exists!!!", user.getEmail());
             throw new UserAlreadyExistException("Email id already exists!!!");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -28,6 +32,7 @@ public class UserService {
 
     public User loadUser() {
         String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("Loading user %s", user);
         User loadedUser =  userRepository.findByName(user);
         //Don't send password
         loadedUser.setPassword(null);
