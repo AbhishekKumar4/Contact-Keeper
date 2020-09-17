@@ -6,17 +6,19 @@ import AuthContext from '../../context/auth/authContext'
 const NavBar = ({title, icon}) => {
 
     const authContext = useContext(AuthContext);
-
-    debugger
     const { isAuthenticated, logout, user } = authContext;
 
     console.log(isAuthenticated);
+
+    const onLogout = () => {
+        
+    }
 
     const authLinks = (
         <Fragment>
             <li>Hello { user && user.name}</li>
             <li>
-                <a href = "#!">
+                <a onClick="{onLogout}"href = "#!">
                     <i className = "fas fa-sign-out-alt"></i> <span className = "hide-sm">Logout</span>
                 </a>
             </li>

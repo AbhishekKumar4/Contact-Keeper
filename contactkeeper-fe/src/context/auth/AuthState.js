@@ -29,12 +29,18 @@ const AuthState = props => {
 
     // Load User
     const loadUser = async () => {    
-        if(localStorage.Authorization) {
-            setAuthToken(localStorage.Authorization);
+        if(localStorage.token) {
+            setAuthToken(localStorage.token);
         }
         
+        const config = {
+            headers : {
+                'Authorization': localStorage.token
+            }
+        }
+
         try {
-            const response = await axios.get('http://localhost:8080/auth');
+            const response = await axios.get('http://localhost:8080/auth', config);
             dispatch({
                 type: USER_LOADED,
                 payload: response.data
@@ -82,7 +88,7 @@ const AuthState = props => {
                 type: LOGIN_SUCCESS,
                 payload : { body : response.data.token, responseCode : response.status}
             });
-            loadUser();
+            //loadUser();
         } catch (error) {
             dispatch({
                 type : LOGIN_FAIL,
