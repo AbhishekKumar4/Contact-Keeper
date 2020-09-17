@@ -41,6 +41,7 @@ export default (state, action) => {
             }
         case REGISTER_FAIL:
         case LOGIN_FAIL:
+        case LOGOUT:
             localStorage.removeItem('Authorization')
             return {
                 ...state,
@@ -48,8 +49,8 @@ export default (state, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                message: action.payload.body,
-                code : action.payload.responseCode
+                message: "User Logged out!!!",
+                code : null
             }
         case AUTH_ERROR:
             localStorage.removeItem('Authorization');
