@@ -59,8 +59,8 @@ export default (state, action) => {
                 isAuthenticated: false,
                 loading: false,
                 user: null,
-                message: action.payload.body,
-                code : action.payload.responseCode
+                message: "Auth Error!!!",
+                code : null
             }
         case CLEAR_ERRORS:
             return {
