@@ -23,23 +23,23 @@ public class ContactService {
     public Contact addContact(Contact contact) {
         String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         contact.setUser(user);
-        log.info("Saving a new contact for user %s", user);
+        log.info("Saving a new contact for user {}", user);
         return contactRepository.save(contact);
     }
 
     public List<Contact> getContacts() {
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("Getting all contacts for user %s", user);
+        log.info("Getting all contacts for user {}", user);
         return contactRepository.findAllByUser(user);
     }
 
     public Contact updateContact(Contact contact) {
-        log.info("Updating contact %s", contact.getId());
+        log.info("Updating contact {}", contact.getId());
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("Updating contact for user %s", user);
+        log.info("Updating contact for user {}", user);
         Optional<Contact> contactOptional = contactRepository.findById(contact.getId());
         if(!contactOptional.isPresent()) {
-            log.info("Contact with Id %s not Found", contact.getId());
+            log.info("Contact with Id {} not Found", contact.getId());
             throw new ContactNotFoundException("Contact Not Found!!!");
         }
         //Need to change this implementation and implement it using user id's
@@ -52,11 +52,11 @@ public class ContactService {
     }
 
     public Contact deleteContact(Long contactId) {
-        log.info("Deleting contact with Id %s", contactId);
+        log.info("Deleting contact with Id {}", contactId);
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Contact> contactOptional = contactRepository.findById(contactId);
         if(!contactOptional.isPresent()) {
-            log.info("Contact with Id %s not Found", contactId);
+            log.info("Contact with Id {} not Found", contactId);
             throw new ContactNotFoundException("Contact Not Found!!!");
         }
         Contact contactEntity = contactOptional.get();
