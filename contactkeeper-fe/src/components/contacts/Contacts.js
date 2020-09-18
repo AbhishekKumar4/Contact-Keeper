@@ -9,6 +9,7 @@ const  Contacts = () => {
 
     const { contacts, filtered } = contactContext;
 
+    debugger
     if(contacts.length === 0) {
         return <h4>Please add a contact</h4>
     }
