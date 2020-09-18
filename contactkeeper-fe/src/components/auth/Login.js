@@ -19,6 +19,7 @@ const Login = props => {
             props.history.push('/');
             clearErrors();
         }
+        // eslint-disable-next-line
     }, [message]);
 
 

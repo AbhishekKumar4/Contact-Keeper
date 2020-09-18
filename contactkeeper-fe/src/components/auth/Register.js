@@ -19,6 +19,7 @@ const Register = props => {
             //props.history.push('/login');
             clearErrors();
         }
+        // eslint-disable-next-line
     }, [message]);
 
     const [user, setUser] = useState({
