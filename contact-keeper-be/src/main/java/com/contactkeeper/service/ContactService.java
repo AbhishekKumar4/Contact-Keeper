@@ -44,7 +44,7 @@ public class ContactService {
         }
         //Need to change this implementation and implement it using user id's
         Contact contactEntity = contactOptional.get();
-        if(contactEntity.getName().equalsIgnoreCase(user)) {
+        if(contactEntity.getUser().equalsIgnoreCase(user)) {
             throw new UserNotAuthorizedException("User not authorized!!!");
         }
         //
@@ -60,7 +60,7 @@ public class ContactService {
             throw new ContactNotFoundException("Contact Not Found!!!");
         }
         Contact contactEntity = contactOptional.get();
-        if(!contactEntity.getName().equalsIgnoreCase(user)) {
+        if(!contactEntity.getUser().equalsIgnoreCase(user)) {
             throw new UserNotAuthorizedException("User not authorized!!!");
         }
         contactRepository.deleteById(contactId);
