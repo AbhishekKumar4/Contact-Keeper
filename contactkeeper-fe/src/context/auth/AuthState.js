@@ -88,7 +88,7 @@ const AuthState = props => {
                 type: LOGIN_SUCCESS,
                 payload : { body : response.data.token, responseCode : response.status}
             });
-            //loadUser();
+            loadUser();
         } catch (error) {
             dispatch({
                 type : LOGIN_FAIL,
