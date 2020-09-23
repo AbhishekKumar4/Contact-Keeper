@@ -7,7 +7,6 @@ import com.contactkeeper.exception.UserNotAuthorizedException;
 import com.contactkeeper.repository.ContactRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,22 +19,18 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-    public Contact addContact(Contact contact) {
-        String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        contact.setUser(user);
+    public Contact addContact(Contact contact, String user) {
         log.info("Saving a new contact for user : {}", user);
         return contactRepository.save(contact);
     }
 
-    public List<Contact> getContacts() {
-        String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<Contact> getContacts(String user) {
         log.info("Getting all contacts for user : {}", user);
         return contactRepository.findAllByUser(user);
     }
 
-    public Contact updateContact(Contact contact) {
+    public Contact updateContact(Contact contact, String user) {
         log.info("Updating contact {}", contact.getId());
-        String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         log.info("Updating contact for user : {}", user);
         Optional<Contact> contactOptional = contactRepository.findById(contact.getId());
         if(!contactOptional.isPresent()) {
@@ -51,9 +46,8 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
-    public Contact deleteContact(Long contactId) {
+    public Contact deleteContact(Long contactId, String user) {
         log.info("Deleting contact with Id {}", contactId);
-        String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Contact> contactOptional = contactRepository.findById(contactId);
         if(!contactOptional.isPresent()) {
             log.info("Contact with Id {} not Found", contactId);

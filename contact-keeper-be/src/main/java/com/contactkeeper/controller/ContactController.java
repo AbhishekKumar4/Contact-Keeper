@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,22 +27,26 @@ public class ContactController {
     private ContactService contactService;
 
     @PostMapping(path = "/contact")
-    public ResponseEntity<Contact> addContact(@RequestBody Contact contact) {
-        return new ResponseEntity<>(contactService.addContact(contact), HttpStatus.OK);
+    public ResponseEntity<Contact> addContact(@RequestBody Contact contact, Principal principal) {
+        String user = principal.getName();
+        return new ResponseEntity<>(contactService.addContact(contact, user), HttpStatus.OK);
     }
 
     @GetMapping(path = "/contact")
-    public ResponseEntity<List<Contact>> getContacts() {
-        return new ResponseEntity<>(contactService.getContacts(), HttpStatus.OK);
+    public ResponseEntity<List<Contact>> getContacts(Principal principal) {
+        String user = principal.getName();
+        return new ResponseEntity<>(contactService.getContacts(user), HttpStatus.OK);
     }
 
     @PutMapping(path = "/contact")
-    public ResponseEntity<Contact> updateContacts(@RequestBody Contact contact) {
-        return new ResponseEntity<>(contactService.updateContact(contact), HttpStatus.OK);
+    public ResponseEntity<Contact> updateContacts(@RequestBody Contact contact, Principal principal) {
+        String user = principal.getName();
+        return new ResponseEntity<>(contactService.updateContact(contact, user), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/contact/{id}")
-    public ResponseEntity<Contact> deleteContacts(@PathVariable Long id) {
-        return new ResponseEntity<>(contactService.deleteContact(id), HttpStatus.OK);
+    public ResponseEntity<Contact> deleteContacts(@PathVariable Long id, Principal principal) {
+        String user = principal.getName();
+        return new ResponseEntity<>(contactService.deleteContact(id, user), HttpStatus.OK);
     }
 }
