@@ -44,7 +44,7 @@ public class ContactService {
         }
         //Need to change this implementation and implement it using user id's
         Contact contactEntity = contactOptional.get();
-        if(contactEntity.getUser().equalsIgnoreCase(user)) {
+        if(!contactEntity.getUser().equalsIgnoreCase(user)) {
             throw new UserNotAuthorizedException("User not authorized!!!");
         }
         //
