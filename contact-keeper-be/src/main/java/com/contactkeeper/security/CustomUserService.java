@@ -20,7 +20,6 @@ public class CustomUserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         com.contactkeeper.entity.User user =  userRepository.findByName(userName);

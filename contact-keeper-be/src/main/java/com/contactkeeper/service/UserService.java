@@ -20,7 +20,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User registerUser(User user) {
-        log.info("Registering a new user {}", user.getEmail());
+        log.info("Registering a new user : {}", user.getEmail());
         User loadedUser = userRepository.findByEmail(user.getEmail());
         if( loadedUser != null ) {
             log.info("User with id {} already exists!!!", user.getEmail());

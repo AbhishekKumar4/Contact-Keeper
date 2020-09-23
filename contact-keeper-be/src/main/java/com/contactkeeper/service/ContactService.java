@@ -23,20 +23,20 @@ public class ContactService {
     public Contact addContact(Contact contact) {
         String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         contact.setUser(user);
-        log.info("Saving a new contact for user {}", user);
+        log.info("Saving a new contact for user : {}", user);
         return contactRepository.save(contact);
     }
 
     public List<Contact> getContacts() {
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("Getting all contacts for user {}", user);
+        log.info("Getting all contacts for user : {}", user);
         return contactRepository.findAllByUser(user);
     }
 
     public Contact updateContact(Contact contact) {
         log.info("Updating contact {}", contact.getId());
         String user = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("Updating contact for user {}", user);
+        log.info("Updating contact for user : {}", user);
         Optional<Contact> contactOptional = contactRepository.findById(contact.getId());
         if(!contactOptional.isPresent()) {
             log.info("Contact with Id {} not Found", contact.getId());
